@@ -7,7 +7,7 @@ var Game = require('../models/Game');
  */
 exports.index = function(req, res) {
 
-    Game.findOne({status:'active'}).lean().exec(
+    Game.findOne({status:'active'}).select("-_id -__v").lean().exec(
 
         function(err,currentGame) {
 
@@ -23,7 +23,7 @@ exports.index = function(req, res) {
                 //todo: Return a list of available levels OR option to create a map
                 //for now... select the first level available and use it
 
-                Level.findOne("{}").lean().exec( function(err,level){
+                Level.findOne("{}").select("-_id -__v").lean().exec( function(err,level){
 
                     if (err) {
                         throw err;
@@ -56,7 +56,7 @@ exports.index = function(req, res) {
                 //use loaded game object
                 global.gameEngine.game = currentGame;
 
-                Level.findOne({_id:currentGame.levelId}).lean().exec(function(err,level){
+                Level.findOne({_id:currentGame.levelId}).select("-_id -__v").lean().exec(function(err,level){
 
                     if (err) {
                         throw err;
