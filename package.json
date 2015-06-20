@@ -40,6 +40,7 @@
     "morgan": "^1.6.0",
     "multer": "^0.1.8",
     "node-foursquare": "^0.3.0",
+    "node-gameloop": "*",
     "node-linkedin": "^0.3.9",
     "nodemailer": "^1.3.4",
     "passport": "^0.2.2",
@@ -59,6 +60,7 @@
     "twilio": "^2.2.1",
     "twit": "^1.1.20",
     "uglify-js": "^2.4.23",
+    "underscore": "*",
     "validator": "^3.40.1",
     "yui": "^3.18.1"
   },
