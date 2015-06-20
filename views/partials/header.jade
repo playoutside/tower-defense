@@ -31,7 +31,6 @@
                 | 'pr'
               else
                 img(src='#{user.gravatar(60)}')
-                | 'gr'
               | #{user.profile.name || user.email || user.id}&nbsp;
               i.caret
             ul.dropdown-menu
