@@ -8,8 +8,11 @@ html
     title #{title}
     if user
         script.
-            var userId = '#{user.id}';
-            var userImage = '#{user.gravatar(32)}';
+            var user = {
+              id: '#{user.id}',
+              image: '#{user.gravatar(32)}',
+              name: '#{user.name}'
+            };
     script(src='/socket.io/socket.io.js')
     script(src='https://maps.googleapis.com/maps/api/js')
     != css('main')
