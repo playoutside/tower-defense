@@ -41,6 +41,8 @@ var passportConf = require('./config/passport');
  * Create Express server.
  */
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 /**
  * Connect to MongoDB.
@@ -61,7 +63,7 @@ app.use(connectAssets({
   paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')]
 }));
 app.use(logger('dev'));
-app.use(favicon(path.join(__dirname, 'public/favicon.png')));
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: path.join(__dirname, 'uploads') }));
@@ -200,9 +202,22 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
 app.use(errorHandler());
 
 /**
+ * socket.io communication
+ */
+io.on('connection', function(socket) {
+  socket.emit('greet', { hello: 'Hey there browser!' });
+  socket.on('respond', function(data) {
+    console.log(data);
+  });
+  socket.on('disconnect', function() {
+    console.log('Socket disconnected');
+  });
+});
+
+/**
  * Start Express server.
  */
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
   console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
 });
 
