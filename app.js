@@ -64,7 +64,7 @@ levelController.setupDefault();
  * game engine
  */
 
-var gameEngine = require('./lib/gameEngine');
+global.gameEngine = require('./lib/gameEngine');
 
 /**
  * Express configuration.
@@ -223,7 +223,7 @@ app.use(errorHandler());
 /**
  * start game loop
  */
-gameEngine.run(server);
+global.gameEngine.run(server);
 
 /**
  * Start Express server.
