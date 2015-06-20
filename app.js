@@ -54,6 +54,13 @@ mongoose.connection.on('error', function() {
 });
 
 /**
+ * Initialize defaults
+ */
+
+
+levelController.setupDefault();
+
+/**
  * game engine
  */
 
@@ -202,7 +209,11 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
 });
 
 
-app.get('/test/levelSetup',levelController.setupDefault);
+app.get('/test/levelSetup',function(req,res) {
+
+    levelController.setupDefault();
+    res.render('test/debug');
+});
 
 /**
  * Error Handler.
