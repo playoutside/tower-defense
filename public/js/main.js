@@ -8,6 +8,12 @@ $(document).ready(function() {
    */
   socket = io();
 
+  socket.on('connect', function onConnect () {
+    socket.emit('Players.join', {
+      playerId: userId
+    });
+  });
+
   if (document.getElementById('map-canvas')) {
     var mapOptions = {
       disableDefaultUI: true,
@@ -36,7 +42,7 @@ $(document).ready(function() {
 
   function success(pos) {
     //console.log(userId + ': ' + pos.coords.latitude + ' ' + pos.coords.longitude);
-    var x = socket.emit('Players.move', {
+    socket.emit('Players.move', {
       playerId: userId,
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude
