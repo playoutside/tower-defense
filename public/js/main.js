@@ -24,9 +24,22 @@ $(document).ready(function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   }
 
+  function newPlayerMarker() {
+    var image = {
+      url: 'img/character.gif',
+      size: new google.maps.Size(32, 32)
+      //origin: new google.maps.Size(),
+
+
+    };
+    return new google.maps.Marker({
+      map: map,
+      title: 'Du'});
+  }
+
   function success(pos) {
     console.log(pos.coords.latitude + ' ' + pos.coords.longitude);
-    socket.emit('player.move', {
+    socket.emit('test', {
       playerId: userId,
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude
@@ -34,7 +47,7 @@ $(document).ready(function() {
 
     console.log(map);
     var playerPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    playerMarker = playerMarker || new google.maps.Marker({map: map, title: 'Du'});
+    playerMarker = playerMarker || newPlayerMarker();
     playerMarker.setPosition(playerPosition);
   }
 

@@ -30,7 +30,6 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var gameController = require('./controllers/game');
-var engineController = require('./controllers/engine');
 
 /**
  * API keys and Passport configuration.
@@ -122,8 +121,6 @@ app.post('/account/delete', passportConf.isAuthenticated, userController.postDel
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 app.get('/game', passportConf.isAuthenticated, gameController.index);
-
-app.get('/engine/test', engineController.test);
 
 /**
  * API examples routes.
