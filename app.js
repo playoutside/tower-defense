@@ -43,7 +43,6 @@ var passportConf = require('./config/passport');
  */
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
 /**
  * Connect to MongoDB.
@@ -52,6 +51,12 @@ mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
+
+/**
+ * game engine
+ */
+
+var gameEngine = require('./lib/gameEngine');
 
 /**
  * Express configuration.
@@ -203,21 +208,9 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
 app.use(errorHandler());
 
 /**
- * socket.io communication
+ * start game loop
  */
-io.on('connection', function(socket) {
-  socket.emit('greet', { hello: 'Hey there browser!' });
-  socket.on('respond', function(data) {
-    console.log(data);
-  });
-  socket.on('playerPosition', function(data) {
-    // TODO: do something useful with the player Position
-    console.log('playerPosition', data);
-  });
-  socket.on('disconnect', function() {
-    console.log('Socket disconnected');
-  });
-});
+gameEngine.run(server);
 
 /**
  * Start Express server.
