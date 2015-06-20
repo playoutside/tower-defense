@@ -26,7 +26,7 @@ $(document).ready(function() {
 
   function success(pos) {
     console.log(pos.coords.latitude + ' ' + pos.coords.longitude);
-    socket.emit('playerPosition', {
+    socket.emit('player.move', {
       playerId: userId,
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude
