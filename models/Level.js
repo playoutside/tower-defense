@@ -52,7 +52,7 @@ var levelSchema = new mongoose.Schema({
      *
      */
     path:[
-        {
+        {   _id:false,
             lat:{type: Number},
             lon:{type: Number}
         }
@@ -62,7 +62,7 @@ var levelSchema = new mongoose.Schema({
      * Locations to build turrets at
      */
     turretSites:[
-        {
+        {   _id:false,
             position:{
                 lat:{type: Number},
                 lon:{type: Number}
@@ -76,7 +76,7 @@ var levelSchema = new mongoose.Schema({
      */
     items: {
         spawnPoints:[
-            {
+            {   _id:false,
                 position:{
                     lat:{type: Number},
                     lon:{type: Number}
@@ -84,7 +84,7 @@ var levelSchema = new mongoose.Schema({
             }
         ],
         available:[
-            {
+            {   _id:false,
                 name:{type:String},
                 value:{type:Number},
                 mode:{
