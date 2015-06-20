@@ -21,7 +21,9 @@
 
 module.exports = {
 
-  db: process.env.MONGODB || 'mongodb://localhost:27017/tower-defense',
+
+  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/tower-defense',
+
 
   sessionSecret: process.env.SESSION_SECRET || 'h$":tP\V[Xh]r6_!~@}*!jza<Cjrj5ap',
 
