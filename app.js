@@ -30,6 +30,7 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var gameController = require('./controllers/game');
+var levelController = require('./controllers/level');
 
 /**
  * API keys and Passport configuration.
@@ -43,6 +44,7 @@ var passportConf = require('./config/passport');
 var app = express();
 var server = require('http').Server(app);
 
+
 /**
  * Connect to MongoDB.
  */
@@ -50,6 +52,13 @@ mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
+
+/**
+ * Initialize defaults
+ */
+
+
+levelController.setupDefault();
 
 /**
  * game engine
@@ -197,6 +206,13 @@ app.get('/auth/tumblr/callback', passport.authorize('tumblr', { failureRedirect:
 app.get('/auth/venmo', passport.authorize('venmo', { scope: 'make_payments access_profile access_balance access_email access_phone' }));
 app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '/api' }), function(req, res) {
   res.redirect('/api/venmo');
+});
+
+
+app.get('/test/levelSetup',function(req,res) {
+
+    levelController.setupDefault();
+    res.render('test/debug');
 });
 
 /**
