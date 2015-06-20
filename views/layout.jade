@@ -10,6 +10,7 @@ html
         script.
             var userId = '#{user.id}';
     script(src='/socket.io/socket.io.js')
+    script(src='https://maps.googleapis.com/maps/api/js')
     != css('main')
     link(rel="apple-touch-icon", sizes="57x57", href="/apple-touch-icon-57x57.png")
     link(rel="apple-touch-icon", sizes="60x60", href="/apple-touch-icon-60x60.png")
@@ -38,6 +39,6 @@ html
       include partials/flash
       block content
 
-    include partials/footer
+    //include partials/footer
 
     != js('application')

@@ -29,6 +29,7 @@ var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
+var gameController = require('./controllers/game');
 
 /**
  * API keys and Passport configuration.
@@ -113,6 +114,7 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+app.get('/game', passportConf.isAuthenticated, gameController.index);
 
 /**
  * API examples routes.
@@ -203,6 +205,10 @@ io.on('connection', function(socket) {
   socket.emit('greet', { hello: 'Hey there browser!' });
   socket.on('respond', function(data) {
     console.log(data);
+  });
+  socket.on('playerPosition', function(data) {
+    // TODO: do something useful with the player Position
+    console.log('playerPosition', data);
   });
   socket.on('disconnect', function() {
     console.log('Socket disconnected');
