@@ -80,8 +80,10 @@ module.exports = {
   },
 
   google: {
-    clientID: process.env.GOOGLE_ID || '828110519058.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || 'JdZsIaWhUFIchmC1a_IZzOHb',
+    /*clientID: process.env.GOOGLE_ID || '828110519058.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || 'JdZsIaWhUFIchmC1a_IZzOHb',*/
+    clientID: process.env.GOOGLE_ID || '229771614321-9u2drbiqra0f8kaje7lbilcbtclqk5gd.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || 'r8Kd87iVPKDU_PuY3sdRA4_o',
     callbackURL: '/auth/google/callback',
     passReqToCallback: true
   },

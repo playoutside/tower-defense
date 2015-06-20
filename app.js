@@ -29,6 +29,7 @@ var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
+var gameController = require('./controllers/game');
 var levelController = require('./controllers/level');
 
 /**
@@ -42,7 +43,7 @@ var passportConf = require('./config/passport');
  */
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+
 
 /**
  * Connect to MongoDB.
@@ -51,6 +52,12 @@ mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
 });
+
+/**
+ * game engine
+ */
+
+var gameEngine = require('./lib/gameEngine');
 
 /**
  * Express configuration.
@@ -63,7 +70,7 @@ app.use(connectAssets({
   paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')]
 }));
 app.use(logger('dev'));
-app.use(favicon(path.join(__dirname, 'public/favicon.png')));
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: path.join(__dirname, 'uploads') }));
@@ -114,6 +121,8 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+
+app.get('/game', passportConf.isAuthenticated, gameController.index);
 
 /**
  * API examples routes.
@@ -201,17 +210,9 @@ app.get('/test/levelSetup',levelController.setupDefault);
 app.use(errorHandler());
 
 /**
- * socket.io communication
+ * start game loop
  */
-io.on('connection', function(socket) {
-  socket.emit('greet', { hello: 'Hey there browser!' });
-  socket.on('respond', function(data) {
-    console.log(data);
-  });
-  socket.on('disconnect', function() {
-    console.log('Socket disconnected');
-  });
-});
+gameEngine.run(server);
 
 /**
  * Start Express server.
