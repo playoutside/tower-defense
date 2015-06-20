@@ -9,6 +9,7 @@ html
     if user
         script.
             var userId = '#{user.id}';
+            var userImage = '#{user.gravatar(32)}';
     script(src='/socket.io/socket.io.js')
     script(src='https://maps.googleapis.com/maps/api/js')
     != css('main')
