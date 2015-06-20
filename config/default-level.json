@@ -1,0 +1,30 @@
+[{
+  "name":"Creep Park",
+  "version":"1.0",
+  "maxPlayer":2,
+  "city":"Berlin",
+  "duration":3600,
+  "waveInterval":30,
+  "mapCenter":{"lat":"52.52013","lon":"13.41966"},
+  "zoom":{"min":1,"max":16},
+  "path":[
+    {"lat":"52.51956","lon":"13.42268"},
+    {"lat":"52.52001","lon":"13.42240"},
+    {"lat":"52.51950","lon":"13.42199"},
+    {"lat":"52.52083","lon":"13.41738"},
+    {"lat":"52.52006","lon":"13.41639"}
+  ],
+  "turretSites":[
+    {"position":{"lat":"52.52074","lon":"13.41847"},"size":1},
+    {"position":{"lat":"52.52044","lon":"13.41804"},"size":1},
+    {"position":{"lat":"52.52054","lon":"13.41678"},"size":1}
+
+  ],
+  "items":{
+    "spawnPoints":[{"position":{"lat":"52.52023","lon":"13.42150"}}],
+    "available":[
+      {"name":"Coins","value":100,"mode":"pickup","respawn":60},
+      {"name":"Box of Coins","value":1000,"mode":"carry-back","respawn":300}
+    ]
+  }
+}]
