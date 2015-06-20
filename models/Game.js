@@ -30,9 +30,10 @@ var gameSchema = new mongoose.Schema({
         }
     ],
     status:{
-        type:string,
-        required:true,
-
+        type:String,
+        enum: ['active','ended','deleted'],
+        default: 'active',
+        required:true
     }
 
 
