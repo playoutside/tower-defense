@@ -1,7 +1,7 @@
 var socket;
 $(document).ready(function() {
   var map;
-  var playerMarker;
+  var game = new Game();
 
   /*
    * connect to socket.io
@@ -10,7 +10,7 @@ $(document).ready(function() {
 
   socket.on('connect', function onConnect () {
     socket.emit('Players.join', {
-      playerId: userId
+      playerId: user.id
     });
   });
 
@@ -26,32 +26,15 @@ $(document).ready(function() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   }
 
-  function newPlayerMarker() {
-    var image = {
-      url: userImage,
-      size: new google.maps.Size(32, 32),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0)
-    };
-    return new google.maps.Marker({
-      map: map,
-      title: 'Du',
-      icon: image
-    });
-  }
-
   function success(pos) {
-    //console.log(userId + ': ' + pos.coords.latitude + ' ' + pos.coords.longitude);
     socket.emit('Players.move', {
-      playerId: userId,
+      playerId: user.id,
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude
     });
 
-    //console.log(map);
-    var playerPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    playerMarker = playerMarker || newPlayerMarker();
-    playerMarker.setPosition(playerPosition);
+    var player = game.currentPlayer || game.setCurrentPlayer(game.addPlayer(map, user.id, user.name, user.image));
+    player.move(pos.coords.latitude, pos.coords.longitude);
   }
 
   function error(err) {
@@ -64,7 +47,7 @@ $(document).ready(function() {
     maximumAge: 0
   };
 
-  if (typeof userId !== 'undefined') { // TODO: add test for running game
+  if (typeof user !== 'undefined') { // TODO: add test for running game
     var watchHandle = navigator.geolocation.watchPosition(success, error, options);
     // navigator.geolocation.clearWatch(watchHandle);
   }
