@@ -31,13 +31,33 @@ exports.index = function(req, res) {
                         throw new Error('No levels ');
                     }
 
-                    globals.gam
+                    globals.gameEngine.level = data[0];
+
+                    globals.gameEngine.game = new Game();
+                    globals.gameEngine.game.levelId = data[0]._id;
+                    globals.gameEngine.game.save();
 
                 });
 
 
             } else {
                 //use loaded game object
+                globals.gameEngine.game = data[0];
+
+                Level.find({_id:data[0].levelId}).limit(1).exec(function(err,data){
+
+                    if (err) {
+                        throw err;
+                    }
+
+                    if (data.length === 0) {
+                        throw new Error('No levels ');
+                    }
+
+                    globals.gameEngine.level = data[0];
+
+                });
+
 
 
             }

@@ -1,12 +1,13 @@
 
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var gameSchema = new mongoose.Schema({
 
     /**
      * Id of configured level
      */
-    levelId: { type: ObjectId, required: true },
+    levelId: { type: Schema.ObjectId, required: true, ref: 'Level' },
 
     /**
      *
@@ -20,7 +21,8 @@ var gameSchema = new mongoose.Schema({
     players:[
         {
             userId:{
-                type: ObjectId,
+                type: Schema.ObjectId,
+                ref:'User',
                 required:true
             },
             position:{
