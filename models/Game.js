@@ -40,12 +40,6 @@ var gameSchema = new mongoose.Schema({
 //todo getStatus --> Returns status infos for client... (map config )
 
 
-/**
- *
- */
-gameSchema.methods.getStatus = function( callback) {
 
-
-};
 
 module.exports = mongoose.model('Game', gameSchema);
