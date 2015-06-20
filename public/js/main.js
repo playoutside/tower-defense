@@ -6,12 +6,8 @@ $(document).ready(function() {
   /*
    * connect to socket.io
    */
-  socket = io.connect(window.location.href);
+  socket = io();
 
-  socket.on('greet', function (data) {
-    console.log(data);
-    socket.emit('respond', { message: 'Hello to you too, Mr.Server!' });
-  });
   if (document.getElementById('map-canvas')) {
     var mapOptions = {
       disableDefaultUI: true,
@@ -38,14 +34,14 @@ $(document).ready(function() {
   }
 
   function success(pos) {
-    console.log(pos.coords.latitude + ' ' + pos.coords.longitude);
-    socket.emit('test', {
+    //console.log(userId + ': ' + pos.coords.latitude + ' ' + pos.coords.longitude);
+    var x = socket.emit('Players.move', {
       playerId: userId,
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude
     });
 
-    console.log(map);
+    //console.log(map);
     var playerPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
     playerMarker = playerMarker || newPlayerMarker();
     playerMarker.setPosition(playerPosition);
