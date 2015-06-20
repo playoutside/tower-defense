@@ -6,6 +6,9 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='csrf-token', content=_csrf)
     title #{title}
+    if user
+        script.
+            var userId = '#{user.id}';
     script(src='/socket.io/socket.io.js')
     != css('main')
   body
