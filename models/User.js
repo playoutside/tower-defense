@@ -57,6 +57,10 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
  */
 userSchema.methods.gravatar = function(size) {
   if (!size) size = 200;
+  // TODO: find correct url
+  //if (this.google) {
+  //  return 'https://plus.google.com/s2/photos/profile/' + this.google + '?sz=' + size;
+  //}
   if (!this.email) return 'https://gravatar.com/avatar/?s=' + size + '&d=retro';
   var md5 = crypto.createHash('md5').update(this.email).digest('hex');
   return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';

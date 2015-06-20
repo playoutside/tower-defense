@@ -26,15 +26,15 @@ $(document).ready(function() {
 
   function newPlayerMarker() {
     var image = {
-      url: 'img/character.gif',
+      url: userImage,
       size: new google.maps.Size(32, 32),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(0, 0)
     };
     return new google.maps.Marker({
       map: map,
-      title: 'Du'//,
-      //icon: image
+      title: 'Du',
+      icon: image
     });
   }
 
