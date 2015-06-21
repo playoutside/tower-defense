@@ -258,11 +258,10 @@ levelController.setupDefault(function (err) {
 
 
     }
-    console.log('Path metrics total length: '+level.pathMetrics.length+' meters. Length of sections between waypoints: ',level.pathMetrics.sections);
+    //console.log('Path metrics total length: '+level.pathMetrics.length+' meters. Length of sections between waypoints: ',level.pathMetrics.sections);
 
     level.getPosition = function (metersMoved) {
-        var distance = 0;
-        var relevanSectionIndex = -1;
+
 
         //get relevant Path section
         for (var i=0; i< this.pathMetrics.sections.length; i++) {
@@ -271,7 +270,7 @@ levelController.setupDefault(function (err) {
 
             if (section.length > metersMoved) {
 
-                console.log(section);
+                //console.log(section);
                 /*            dt = (t - t0) / (t1 - t0) // fraction of time elapsed between t0 & t1
                  p.x = p0.x + ( dt * (p1.x - p0.x) )  // the point's x is that same fraction between x0 and x1
                  p.y = p0.y + ( dt * (p1.y - p0.y) )  // ditto, y.*/
