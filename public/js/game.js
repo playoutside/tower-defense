@@ -3,7 +3,8 @@
 function Game(gameContainer, zoom, lat, lng) {
   var that = this;
 
-  this.players = [];
+  this.players = {};
+  this.towers = {};
   this.currentPlayer = null;
   this.socket = io();
 
@@ -110,7 +111,7 @@ function Game(gameContainer, zoom, lat, lng) {
         longitude: pos.coords.longitude
       });
 
-      var player = that.currentPlayer || that.setCurrentPlayer(that.addPlayer(that.map, user.id, user.name, user.image));
+      var player = that.currentPlayer || that.setCurrentPlayer(that.addPlayer(user.id, user.name, user.image));
       player.move(pos.coords.latitude, pos.coords.longitude);
     },
     function error(err) {
@@ -129,8 +130,14 @@ Game.prototype.setCurrentPlayer = function (player) {
   return player;
 };
 
-Game.prototype.addPlayer = function (map, id, name, image) {
-  var player = new Player(map, id, name, image);
-  this.players.push(player);
+Game.prototype.addPlayer = function (id, name, image) {
+  var player = new Player(this.map, id, name, image);
+  this.players[id] = player;
   return player;
+};
+
+Game.prototype.addTower = function (id, lat, lng) {
+  var tower = new Tower(this.map, id, lat, lng);
+  this.towers[id] = tower;
+  return tower;
 };

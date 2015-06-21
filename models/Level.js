@@ -20,14 +20,41 @@ var levelSchema = new mongoose.Schema({
      */
     city: String,
 
+
     /**
-     * Max duration of game in seconds
+     * Creep wave spawn cycle
+     *
+     * duration: length of a spawn wave in seconds
+     * delay: time between spawn waves in seconds
+     * creepCount: how many creeps per wave
      */
-    duration: Number,
+    wave:{
+        duration:{type:Number},
+        delay:{type:Number},
+        creepCount:{type:Number}
+    },
+
     /**
-     * Time between waves in seconds
+     * First Wave creep has hitPoints, 2nd wave creep has increment more hitpoints etc...
+     * hitPoints -- Basic hit points first level
+     * increment -- Hitpoint gain per wave
      */
-    waveInterval: Number,
+    creep:{
+      hitPoints:{type:Number},
+      increment:{type:Number}
+
+    },
+
+    /**
+     * damage of Level 1 tower
+     * increment damage gained per tower level
+     * range of tower in meters
+     */
+    tower:{
+        damage:{type:Number},
+        increment:{type:Number},
+        range:{type:Number}
+    },
 
     /**
      * Map Center
@@ -43,7 +70,8 @@ var levelSchema = new mongoose.Schema({
      */
     zoom:{
         min:{type: Number,default:1},
-        max:{type: Number,default:16}
+        max:{type: Number,default:16},
+        initial:{type: Number,default:5}
 
     },
 
@@ -52,7 +80,7 @@ var levelSchema = new mongoose.Schema({
      *
      */
     path:[
-        {
+        {   _id:false,
             lat:{type: Number},
             lon:{type: Number}
         }
@@ -62,7 +90,7 @@ var levelSchema = new mongoose.Schema({
      * Locations to build turrets at
      */
     turretSites:[
-        {
+        {   _id:false,
             position:{
                 lat:{type: Number},
                 lon:{type: Number}
@@ -76,7 +104,7 @@ var levelSchema = new mongoose.Schema({
      */
     items: {
         spawnPoints:[
-            {
+            {   _id:false,
                 position:{
                     lat:{type: Number},
                     lon:{type: Number}
@@ -84,7 +112,7 @@ var levelSchema = new mongoose.Schema({
             }
         ],
         available:[
-            {
+            {   _id:false,
                 name:{type:String},
                 value:{type:Number},
                 mode:{
