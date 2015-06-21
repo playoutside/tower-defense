@@ -261,8 +261,7 @@ levelController.setupDefault(function (err) {
     //console.log('Path metrics total length: '+level.pathMetrics.length+' meters. Length of sections between waypoints: ',level.pathMetrics.sections);
 
     level.getPosition = function (metersMoved) {
-        var distance = 0;
-        var relevanSectionIndex = -1;
+
 
         //get relevant Path section
         for (var i=0; i< this.pathMetrics.sections.length; i++) {

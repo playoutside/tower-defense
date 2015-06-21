@@ -9,7 +9,7 @@ function Tower(map, id, lat, lng) {
       url: '/img/tower-empty.png',
       size: new google.maps.Size(128, 128),
       origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(24, 24),
       scaledSize: new google.maps.Size(48, 48)
     }
   });
@@ -29,7 +29,7 @@ Tower.prototype.build = function() {
       url: '/img/tower.png',
       size: new google.maps.Size(128, 128),
       origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(24, 24),
       scaledSize: new google.maps.Size(48, 48)
     }
   });

@@ -3,13 +3,13 @@
   "version":"1.0",
   "maxPlayer":2,
   "city":"Berlin",
-  "wave":{"duration":15,"delay":5,"creepCount":20},
+  "wave":{"duration":10,"delay":25,"creepCount":5},
   "creep":{
     "hitPoints":100,
     "increment":5,
     "speed":{
-      "min":0.5,
-      "max":2
+      "min":3,
+      "max":8
     }
   },
   "tower":{"damage":20,"increment":4,"range":50},
