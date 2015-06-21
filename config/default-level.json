@@ -4,12 +4,20 @@
   "maxPlayer":2,
   "city":"Berlin",
   "wave":{"duration":15,"delay":5,"creepCount":20},
-  "creep":{"hitPoints":100,"increment":5},
+  "creep":{
+    "hitPoints":100,
+    "increment":5,
+    "speed":{
+      "min":0.5,
+      "max":2
+    }
+  },
   "tower":{"damage":20,"increment":4,"range":50},
   "mapCenter":{"lat":"52.52013","lon":"13.41966"},
   "zoom":{"min":1,"max":16,"initial":5},
   "path":[
     {"lat":"52.51956","lon":"13.42268"},
+    {"lat":"52.51986","lon":"13.42290"},
     {"lat":"52.52001","lon":"13.42240"},
     {"lat":"52.51950","lon":"13.42199"},
     {"lat":"52.52083","lon":"13.41738"},
@@ -18,7 +26,10 @@
   "turretSites":[
     {"position":{"lat":"52.52074","lon":"13.41847"},"size":1},
     {"position":{"lat":"52.52044","lon":"13.41804"},"size":1},
-    {"position":{"lat":"52.52054","lon":"13.41678"},"size":1}
+    {"position":{"lat":"52.52054","lon":"13.41678"},"size":1},
+    {"position":{"lat":"52.51988","lon":"13.42137"},"size":1},
+    {"position":{"lat":"52.51953","lon":"13.42122"},"size":1}
+
 
   ],
   "items":{
