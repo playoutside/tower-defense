@@ -38,10 +38,15 @@ var levelSchema = new mongoose.Schema({
      * First Wave creep has hitPoints, 2nd wave creep has increment more hitpoints etc...
      * hitPoints -- Basic hit points first level
      * increment -- Hitpoint gain per wave
+     * speed-- min max value in meters per second
      */
     creep:{
       hitPoints:{type:Number},
-      increment:{type:Number}
+      increment:{type:Number},
+      speed:{
+          min:{type:Number},
+          max:{type:Number}
+      }
 
     },
 

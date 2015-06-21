@@ -2,10 +2,10 @@ var Level = require('../models/Level');
 var _ = require('underscore');
 
 
-exports.setupDefault = function() {
+exports.setupDefault = function(done) {
     var levelsAvailable = Level.find("{}").limit(10).exec(function(err,data){
         if (err) {
-            return err;
+            return done(err);
         }
 
         if (data.length === 0) {
@@ -19,10 +19,10 @@ exports.setupDefault = function() {
             }
 
             console.log('Done initializing default level data');
-            return true;
+            done();
         } else {
             console.log('Levels already loaded');
-            return true;
+            done();
         }
     });
 
