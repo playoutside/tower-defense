@@ -103,6 +103,13 @@ function Game(gameContainer, zoom, lat, lng) {
     });
   });
 
+  this.socket.on('Game.fullStatus', function onFullStatus(data) {
+    console.log(data);
+    _.each(data.level.turretSites, function(turretSite, index) {
+      that.addTower(index, turretSite.position.lat, turretSite.position.lon);
+    });
+  });
+
   this.watchHandle = navigator.geolocation.watchPosition(
     function success(pos) {
       that.socket.emit('Players.move', {
