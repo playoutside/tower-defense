@@ -4,7 +4,14 @@
   "maxPlayer":2,
   "city":"Berlin",
   "wave":{"duration":15,"delay":5,"creepCount":20},
-  "creep":{"hitPoints":100,"increment":5},
+  "creep":{
+    "hitPoints":100,
+    "increment":5,
+    "speed":{
+      "min":0.5,
+      "max":2
+    }
+  },
   "tower":{"damage":20,"increment":4,"range":50},
   "mapCenter":{"lat":"52.52013","lon":"13.41966"},
   "zoom":{"min":1,"max":16,"initial":5},

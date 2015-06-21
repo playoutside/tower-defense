@@ -7,6 +7,7 @@ function Game(gameContainer, zoom, lat, lng) {
   this.towers = {};
   this.currentPlayer = null;
   this.socket = io();
+  this.path = null;
 
   var mapOptions = {
     disableDefaultUI: true,
@@ -105,6 +106,22 @@ function Game(gameContainer, zoom, lat, lng) {
 
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
     console.log(data);
+
+    var pathCoordinates = [];
+    _.each(data.level.path, function(pathCoordinatesPair, index) {
+      pathCoordinates.push(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
+    });
+
+     var path = new google.maps.Polyline({
+     path: pathCoordinates,
+     geodesic: true,
+     strokeColor: '#6fcdde',
+     strokeOpacity: 1.0,
+     strokeWeight: 5
+     });
+
+     path.setMap(that.map);
+
     _.each(data.level.turretSites, function(turretSite, index) {
       that.addTower(index, turretSite.position.lat, turretSite.position.lon);
     });
