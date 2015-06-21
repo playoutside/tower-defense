@@ -2,3 +2,14 @@ extends ../layout
 
 block content
   #map-canvas
+  button.btn.btn-info.btn-game-options(type='button', data-toggle='modal', data-target='.bs-example-modal-sm')
+    i.fa.fa-cog
+  .modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='mySmallModalLabel')
+    .modal-dialog.modal-sm
+      .modal-content
+        .container
+          h1 Options
+          .checkbox
+            label
+              input(type='checkbox', id='showTowerRangesCheckbox')
+              | Show Tower Ranges
