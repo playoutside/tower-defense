@@ -137,7 +137,8 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Players.disconnect', function playerDisconnected(data) {
-    new PNotify({text: 'Player "' + that.players[data.playerId].name + '" left.'});
+    new PNotify({text: 'Player "' + that.players[data.playerId]
+      .name + '" left.'});
     that.removePlayer(data.playerId);
   });
 
