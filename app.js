@@ -289,9 +289,6 @@ levelController.setupDefault(function (err) {
     };
 
 
-    console.log(
-        'Meters Moved 0 ',level.getPosition(15)
-    );
 
 
     var GameEngine = require('./lib/GameEngine.js');
