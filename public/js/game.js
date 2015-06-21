@@ -5,6 +5,7 @@ function Game(gameContainer, zoom, lat, lng) {
 
   this.players = {};
   this.towers = {};
+  this.creeps = {};
   this.currentPlayer = null;
   this.socket = io();
   this.path = null;
@@ -104,6 +105,16 @@ function Game(gameContainer, zoom, lat, lng) {
     });
   });
 
+  var updateCreeps = function updateCreeps(creeps) {
+    _.each(creeps, function(creep) {
+      if (_.has(that.creeps, creep.id)) {
+        that.creeps[creep.id].move(creep.pos.lat, creep.pos.lon);
+      } else {
+        that.addCreep(creep.id, creep.pos.lat, creep.pos.lon);
+      }
+    });
+  };
+
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
     console.log(data);
 
@@ -112,15 +123,15 @@ function Game(gameContainer, zoom, lat, lng) {
       pathCoordinates.push(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
     });
 
-     var path = new google.maps.Polyline({
-     path: pathCoordinates,
-     geodesic: true,
-     strokeColor: '#6fcdde',
-     strokeOpacity: 1.0,
-     strokeWeight: 5
-     });
+    var path = new google.maps.Polyline({
+      path: pathCoordinates,
+      geodesic: true,
+      strokeColor: '#6fcdde',
+      strokeOpacity: 1.0,
+      strokeWeight: 5
+    });
 
-     path.setMap(that.map);
+    path.setMap(that.map);
 
     _.each(data.level.turretSites, function(turretSite, index) {
       that.addTower(index, turretSite.position.lat, turretSite.position.lon);
@@ -140,6 +151,12 @@ function Game(gameContainer, zoom, lat, lng) {
     new PNotify({text: 'Player "' + that.players[data.playerId]
       .name + '" left.'});
     that.removePlayer(data.playerId);
+  });
+
+  this.socket.on('Creeps.status', updateCreeps);
+
+  this.socket.on('Creeps.remove', function (creepId) {
+    that.removeCreep(creepId);
   });
 
   this.watchHandle = navigator.geolocation.watchPosition(
@@ -184,4 +201,15 @@ Game.prototype.addTower = function (id, lat, lng) {
   var tower = new Tower(this.map, id, lat, lng);
   this.towers[id] = tower;
   return tower;
+};
+
+Game.prototype.addCreep = function (id, lat, lng) {
+  var creep = new Creep(this.map, id, lat, lng);
+  this.creeps[id] = creep;
+  return creep;
+};
+
+Game.prototype.removeCreep = function (id) {
+  this.creeps[id].remove();
+  delete(this.creeps[id]);
 };
