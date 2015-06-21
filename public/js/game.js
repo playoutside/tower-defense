@@ -7,6 +7,7 @@ function Game(gameContainer, zoom, lat, lng) {
   this.towers = {};
   this.currentPlayer = null;
   this.socket = io();
+  this.path = null;
 
   var mapOptions = {
     disableDefaultUI: true,
@@ -105,9 +106,39 @@ function Game(gameContainer, zoom, lat, lng) {
 
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
     console.log(data);
+
+    var pathCoordinates = [];
+    _.each(data.level.path, function(pathCoordinatesPair, index) {
+      pathCoordinates.push(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
+    });
+
+     var path = new google.maps.Polyline({
+     path: pathCoordinates,
+     geodesic: true,
+     strokeColor: '#6fcdde',
+     strokeOpacity: 1.0,
+     strokeWeight: 5
+     });
+
+     path.setMap(that.map);
+
     _.each(data.level.turretSites, function(turretSite, index) {
       that.addTower(index, turretSite.position.lat, turretSite.position.lon);
     });
+  });
+
+  this.socket.on('Players.pos', function playerChangedPosition(data) {
+    that.players[data.playerId].move(data.latitude, data.longitude);
+  });
+
+  this.socket.on('Players.join', function newPlayerJoined(data) {
+    new PNotify({text: 'Player "' + data.name + '" joined.'});
+    that.addPlayer(data.playerId, data.name, data.image);
+  });
+
+  this.socket.on('Players.disconnect', function playerDisconnected(data) {
+    new PNotify({text: 'Player "' + that.players[data.playerId].name + '" left.'});
+    that.removePlayer(data.playerId);
   });
 
   this.watchHandle = navigator.geolocation.watchPosition(
@@ -141,6 +172,11 @@ Game.prototype.addPlayer = function (id, name, image) {
   var player = new Player(this.map, id, name, image);
   this.players[id] = player;
   return player;
+};
+
+Game.prototype.removePlayer = function (id) {
+  this.players[id].remove();
+  delete(this.players[id]);
 };
 
 Game.prototype.addTower = function (id, lat, lng) {
