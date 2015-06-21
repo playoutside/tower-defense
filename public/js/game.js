@@ -213,3 +213,9 @@ Game.prototype.removeCreep = function (id) {
   this.creeps[id].remove();
   delete(this.creeps[id]);
 };
+
+Game.prototype.showCircles = function (show) {
+  _.each(this.towers, function (tower) {
+    tower.showCircle(show);
+  });
+};
