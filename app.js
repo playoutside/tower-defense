@@ -221,9 +221,78 @@ levelController.setupDefault(function (err) {
       throw err;
     }
 
+
     if (!level) {
       throw new Error('No levels ');
     }
+
+      /** Converts numeric degrees to radians */
+      if (typeof(Number.prototype.toRad) === "undefined") {
+          Number.prototype.toRad = function() {
+              return this * Math.PI / 180;
+          }
+      }
+
+    level.pathMetrics = {
+        length:0,
+        sections:[]
+    };
+
+    //todo: Put this somewhere sensible
+    //Calculate path total length
+    for (var i = 0; i < level.path.length-1; i++) {
+        locationA = level.path[i];
+        locationB = level.path[i+1];
+
+        var φ1 = locationA.lat.toRad(), φ2 = locationB.lat.toRad(), Δλ = (locationB.lon-locationA.lon).toRad(), R = 6371000; // gives d in metres
+        var d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
+
+        level.pathMetrics.length = level.pathMetrics.length + d;
+        level.pathMetrics.sections.push(
+            {
+                length:d,
+                start:locationA,
+                end:locationB
+            }
+        );
+
+
+    }
+    console.log('Path metrics total length: '+level.pathMetrics.length+' meters. Length of sections between waypoints: ',level.pathMetrics.sections);
+
+    level.getPosition = function (metersMoved) {
+        var distance = 0;
+        var relevanSectionIndex = -1;
+
+        //get relevant Path section
+        for (var i=0; i< this.pathMetrics.sections.length; i++) {
+
+            var section = this.pathMetrics.sections[i];
+
+            if (section.length > metersMoved) {
+
+                console.log(section);
+                /*            dt = (t - t0) / (t1 - t0) // fraction of time elapsed between t0 & t1
+                 p.x = p0.x + ( dt * (p1.x - p0.x) )  // the point's x is that same fraction between x0 and x1
+                 p.y = p0.y + ( dt * (p1.y - p0.y) )  // ditto, y.*/
+
+                var dt= metersMoved / section.length;
+                var lat = section.start.lat + dt * (section.end.lat-section.start.lat);
+                var lon = section.start.lon + dt * (section.end.lon-section.start.lon);
+                return {lat:lat,lon:lon};
+            }
+
+            metersMoved = metersMoved - section.length;
+
+        }
+        return this.pathMetrics.sections[this.pathMetrics.sections.length-1].end;
+    };
+
+
+    console.log(
+        'Meters Moved 0 ',level.getPosition(15)
+    );
+
 
     var GameEngine = require('./lib/GameEngine.js');
     global.gameEngine = new GameEngine(level);

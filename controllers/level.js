@@ -15,11 +15,24 @@ exports.setupDefault = function(done) {
                 console.log('Loading Level ', i, ' Data: ', defaultLevelList[i]);
 
                 var level = _.extend(new Level(), defaultLevelList[i]);
-                level.save();
+
+                //we are done after the last level object has been saved successfully
+                if ( i === (defaultLevelList.length-1)) {
+                    level.save(
+                        function (err, data) {
+                            if (err) {
+                                throw err;
+                            }
+                            console.log('Done initializing default level data');
+                            done();
+                        }
+                    );
+                } else {
+                    level.save();
+                }
+
             }
 
-            console.log('Done initializing default level data');
-            done();
         } else {
             console.log('Levels already loaded');
             done();
