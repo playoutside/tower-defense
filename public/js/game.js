@@ -148,15 +148,16 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Players.disconnect', function playerDisconnected(data) {
-    new PNotify({text: 'Player "' + that.players[data.playerId]
-      .name + '" left.'});
+    new PNotify({text: 'Player "' + that.players[data.playerId].name + '" left.'});
     that.removePlayer(data.playerId);
   });
 
   this.socket.on('Creeps.status', updateCreeps);
 
-  this.socket.on('Creeps.remove', function (creepId) {
-    that.removeCreep(creepId);
+  this.socket.on('Creeps.remove', function (creeps) {
+    _.each(creeps, function (creep) {
+      that.removeCreep(creep.id);
+    });
   });
 
   this.watchHandle = navigator.geolocation.watchPosition(
@@ -212,4 +213,10 @@ Game.prototype.addCreep = function (id, lat, lng) {
 Game.prototype.removeCreep = function (id) {
   this.creeps[id].remove();
   delete(this.creeps[id]);
+};
+
+Game.prototype.showCircles = function (show) {
+  _.each(this.towers, function (tower) {
+    tower.showCircle(show);
+  });
 };
