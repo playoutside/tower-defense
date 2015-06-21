@@ -127,6 +127,21 @@ function Game(gameContainer, zoom, lat, lng) {
     });
   });
 
+  this.socket.on('Players.pos', function playerChangedPosition(data) {
+    that.players[data.playerId].move(data.latitude, data.longitude);
+  });
+
+  this.socket.on('Players.join', function newPlayerJoined(data) {
+    new PNotify({text: 'Player "' + data.name + '" joined.'});
+    that.addPlayer(data.playerId, data.name, data.image);
+  });
+
+  this.socket.on('Players.disconnect', function playerDisconnected(data) {
+    new PNotify({text: 'Player "' + that.players[data.playerId]
+      .name + '" left.'});
+    that.removePlayer(data.playerId);
+  });
+
   this.watchHandle = navigator.geolocation.watchPosition(
     function success(pos) {
       that.socket.emit('Players.move', {
@@ -158,6 +173,11 @@ Game.prototype.addPlayer = function (id, name, image) {
   var player = new Player(this.map, id, name, image);
   this.players[id] = player;
   return player;
+};
+
+Game.prototype.removePlayer = function (id) {
+  this.players[id].remove();
+  delete(this.players[id]);
 };
 
 Game.prototype.addTower = function (id, lat, lng) {

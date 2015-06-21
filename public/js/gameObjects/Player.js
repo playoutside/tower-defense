@@ -2,6 +2,7 @@
 
 function Player(map, id, name, image) {
   this.id = id;
+  this.name = name || "";
   this.marker = new google.maps.Marker({
     map: map,
     title: name,
@@ -35,4 +36,9 @@ function Player(map, id, name, image) {
 
 Player.prototype.move = function(lat, lng) {
   this.marker.setPosition(new google.maps.LatLng(lat, lng));
+};
+
+Player.prototype.remove = function() {
+  this.marker.setMap(null);
+  this.marker = null;
 };
