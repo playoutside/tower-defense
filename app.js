@@ -54,11 +54,6 @@ mongoose.connection.on('error', function() {
 });
 
 /**
- * Initialize defaults
- */
-levelController.setupDefault();
-
-/**
  * Express configuration.
  */
 app.set('port', process.env.PORT || 3000);
@@ -215,22 +210,29 @@ app.use(errorHandler());
 /**
  * game engine
  */
-
-var Level = require('./models/Level.js');
-Level.findOne("{}").select("-_id -__v").lean().exec(function (err, level) {
+levelController.setupDefault(function (err) {
   if (err) {
     throw err;
   }
 
-  if (!level) {
-    throw new Error('No levels ');
-  }
+  var Level = require('./models/Level.js');
+  Level.findOne("{}").select("-_id -__v").lean().exec(function (err, level) {
+    if (err) {
+      throw err;
+    }
 
-  var GameEngine = require('./lib/GameEngine.js');
-  global.gameEngine = new GameEngine(level);
-  global.gameEngine.run(server);
+    if (!level) {
+      throw new Error('No levels ');
+    }
+
+    var GameEngine = require('./lib/GameEngine.js');
+    global.gameEngine = new GameEngine(level);
+    global.gameEngine.run(server);
+
+  });
 
 });
+
 
 /**
  * Start Express server.
