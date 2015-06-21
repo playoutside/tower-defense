@@ -7,9 +7,9 @@ var Game = require('../models/Game');
  */
 exports.index = function(req, res) {
 
-    Game.find({status:'active'}).limit(1).exec(
+    Game.findOne({status:'active'}).select("-_id -__v").lean().exec(
 
-        function(err,data) {
+        function(err,currentGame) {
 
 
 
@@ -17,32 +17,35 @@ exports.index = function(req, res) {
                 throw err;
             }
 
-            if ( data.length === 0) {
+            if ( !currentGame ) {
                 console.log('No active game found. Spawning new game.');
 
                 //todo: Return a list of available levels OR option to create a map
                 //for now... select the first level available and use it
 
-                Level.find("{}").limit(10).exec(function(err,data){
+                Level.findOne("{}").select(" -__v").lean().exec( function(err,level){
 
                     if (err) {
                         throw err;
                     }
 
-                    if (data.length === 0) {
+                    if (!level) {
                         throw new Error('No levels ');
                     }
 
-                    console.log('Loading default level done...',data);
+                    console.log('Loading default level done...',level);
 
-                    global.gameEngine.level = data[0];
 
                     global.gameEngine.game = new Game();
-                    global.gameEngine.game.levelId = data[0]._id;
+                    global.gameEngine.game.levelId = level._id;
                     global.gameEngine.game.save();
 
+                    delete level._id;
+                    global.gameEngine.level = level;
+
+
                     res.render('game', {
-                        title: 'New Game "'+data[0].name+'"'
+                        title: 'New Game "'+level.name+'"'
                     });
 
 
@@ -50,25 +53,26 @@ exports.index = function(req, res) {
 
 
             } else {
+
                 console.log('Active game found');
 
                 //use loaded game object
-                global.gameEngine.game = data[0];
+                global.gameEngine.game = currentGame;
 
-                Level.find({_id:data[0].levelId}).limit(1).exec(function(err,data){
+                Level.findOne({_id:currentGame.levelId}).select("-_id -__v").lean().exec(function(err,level){
 
                     if (err) {
                         throw err;
                     }
 
-                    if (data.length === 0) {
+                    if (!level) {
                         throw new Error('No levels ');
                     }
 
-                    global.gameEngine.level = data[0];
+                    global.gameEngine.level = level;
 
                     res.render('game', {
-                        title: 'Playing now  "'+data[0].name+'"'
+                        title: 'Playing now  "'+level.name+'"'
                     });
 
                 });

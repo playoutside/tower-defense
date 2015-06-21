@@ -9,14 +9,10 @@ var gameSchema = new mongoose.Schema({
      */
     levelId: { type: Schema.ObjectId, required: true, ref: 'Level' },
 
-    /**
-     *
-     */
-    inventory: {
-        creditsCollected:{type: Number, default:0}
 
 
-    },
+    /*
+    //todo  add again when we implement multi match gaming
 
     players:[
         {
@@ -30,7 +26,7 @@ var gameSchema = new mongoose.Schema({
                 lon:{type: Number}
             }
         }
-    ],
+    ],*/
     status:{
         type:String,
         enum: ['active','ended','deleted'],
@@ -38,11 +34,11 @@ var gameSchema = new mongoose.Schema({
         required:true
     }
 
-
-
-
-
 });
+
+
+//todo getStatus --> Returns status infos for client... (map config )
+
 
 
 
