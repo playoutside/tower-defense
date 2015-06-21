@@ -14,7 +14,7 @@ function Player(map, id, name, image) {
   });
 
 
-  google.maps.event.addListener(this.marker, 'click', function() {
+/*  google.maps.event.addListener(this.marker, 'click', function() {
 
     var circle = new google.maps.Circle({
       map: map,
@@ -27,9 +27,9 @@ function Player(map, id, name, image) {
     });
 
     circle.bindTo('center', this, 'position');
-    /*circle.setMap(null);*/
+    *//*circle.setMap(null);*//*
 
-   });
+   });*/
 
 }
 
