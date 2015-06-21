@@ -5,7 +5,7 @@ function Creep(map, id, lat, lon) {
   this.marker = null; // TODO: create Marker
 }
 
-Creep.prototype.kill = function() {
+Creep.prototype.remove = function() {
   this.marker.setMap(null);
   this.marker = null;
 };
