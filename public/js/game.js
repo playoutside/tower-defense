@@ -119,8 +119,11 @@ function Game(gameContainer, zoom, lat, lng) {
     console.log(data);
 
     var pathCoordinates = [];
+    var bounds = new google.maps.LatLngBounds();
+
     _.each(data.level.path, function(pathCoordinatesPair, index) {
       pathCoordinates.push(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
+      bounds.extend(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
     });
 
     var path = new google.maps.Polyline({
@@ -132,6 +135,9 @@ function Game(gameContainer, zoom, lat, lng) {
     });
 
     path.setMap(that.map);
+
+    that.map.fitBounds(bounds);
+    that.map.panToBounds(bounds);
 
     _.each(data.level.turretSites, function(turretSite, index) {
       that.addTower(index, turretSite.position.lat, turretSite.position.lon);
