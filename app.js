@@ -260,6 +260,13 @@ levelController.setupDefault(function (err) {
     }
     //console.log('Path metrics total length: '+level.pathMetrics.length+' meters. Length of sections between waypoints: ',level.pathMetrics.sections);
 
+    level.getProximity = function (locationA,locationB) {
+        var φ1 = locationA.lat.toRad(), φ2 = locationB.lat.toRad(), Δλ = (locationB.lon-locationA.lon).toRad(), R = 6371000; // gives d in metres
+        var d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
+        return d;
+    };
+
+
     level.getPosition = function (metersMoved) {
 
 
