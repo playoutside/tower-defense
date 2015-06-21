@@ -110,6 +110,18 @@ function Game(gameContainer, zoom, lat, lng) {
     });
   });
 
+  this.socket.on('Players.pos', function playerChangedPosition(data) {
+    console.log('Players.pos', data);
+  });
+
+  this.socket.on('Players.join', function newPlayerJoined(data) {
+    console.log('Players.join', data);
+  });
+
+  this.socket.on('Players.disconnect', function playerDisconnected(data) {
+    console.log('Players.disconnect', data);
+  });
+
   this.watchHandle = navigator.geolocation.watchPosition(
     function success(pos) {
       that.socket.emit('Players.move', {
