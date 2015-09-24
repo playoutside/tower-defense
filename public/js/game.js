@@ -158,6 +158,10 @@ function Game(gameContainer, zoom, lat, lng) {
     that.removePlayer(data.playerId);
   });
 
+  this.socket.on('Player.actionAvailable', function playerActionAvailable(data) {
+    console.log(data);
+  });
+
   this.socket.on('Creeps.status', updateCreeps);
 
   this.socket.on('Creeps.remove', function (creeps) {
