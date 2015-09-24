@@ -1,7 +1,7 @@
 [{
   "name":"Hackathon Infestation",
   "version":"1.0",
-  "maxPlayer":4,
+  "maxPlayer": 30,
   "city":"Mittelkalbach",
   "wave":{"duration":10,"delay":25,"creepCount":5},
   "creep":{
@@ -25,10 +25,11 @@
   ],
   "turretSites":[
     {"position":{"lat":"50.409846","lon":"9.622218"},"size":1},
-    {"position":{"lat":"50.409474","lon":"9.621795"},"size":1},
+    {"position":{"lat":"50.409323","lon":"9.621690"},"size":1},
     {"position":{"lat":"50.409220","lon":"9.620824"},"size":1},
     {"position":{"lat":"50.409000","lon":"9.620853"},"size":1},
-    {"position":{"lat":"50.409197","lon":"9.619976"},"size":1}
+    {"position":{"lat":"50.409197","lon":"9.619976"},"size":1},
+    {"position":{"lat":"50.409470","lon":"9.622760"},"size":1}
 
 
   ],
