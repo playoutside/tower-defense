@@ -77,4 +77,4 @@ Tower.prototype.showCircle = function (flag) {
 
 Tower.prototype.isCircleShown = function () {
   return this.circle.getMap() !== null;
-}
+};
