@@ -10,7 +10,7 @@ Türme cooldowns / proximity Logik (MICHA)
 
 Türme feuern (MICHA)
 
-Creeps Schaden erleiden lassen (creep disposal) (RUBEN)
+~~Creeps Schaden erleiden lassen (creep disposal)~~ (RUBEN)
 
 Credits verteilen und ausgeben (KEVIN) STATUS
 
