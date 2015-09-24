@@ -2,7 +2,7 @@
 bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 
 
-Neues Level  (RUBEN)
+~~Neues Level~~ (RUBEN)
 
 Türme bauen können (KEVIN) +Interaktion
 
@@ -10,7 +10,7 @@ Türme cooldowns / proximity Logik (MICHA)
 
 Türme feuern (MICHA)
 
-Creeps Schaden erleiden lassen (creep disposal) (RUBEN)
+~~Creeps Schaden erleiden lassen (creep disposal)~~ (RUBEN)
 
 Credits verteilen und ausgeben (KEVIN) STATUS
 
