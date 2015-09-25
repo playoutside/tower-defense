@@ -180,6 +180,10 @@ function Game(gameContainer, zoom, lat, lng) {
         }
       }
     });
+
+    $('.hud .wave').html('Wave: ' + data.wave);
+    $('.hud .lives').html('Lives: ' + data.health);
+    $('.hud .credits').html('Credits: ' + data.credits);
   });
 
   this.socket.on('Players.pos', function playerChangedPosition(data) {
@@ -194,6 +198,11 @@ function Game(gameContainer, zoom, lat, lng) {
   this.socket.on('Players.disconnect', function playerDisconnected(data) {
     new PNotify({text: 'Player "' + that.players[data.playerId].name + '" left.'});
     that.removePlayer(data.playerId);
+  });
+
+  this.socket.on('Players.health', function playerHealth(health) {
+    new PNotify({text: 'Creep could hit and took a life.'});
+    $('.hud .lives').html('Lives: ' + health);
   });
 
   this.socket.on('Player.actionAvailable', function playerActionAvailable(data) {

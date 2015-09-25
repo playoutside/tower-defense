@@ -1,6 +1,13 @@
 extends ../layout
 
 block content
+  ul.hud
+    li(class='wave')
+
+    li(class='lives')
+
+    li(class='credits')
+
   #map-canvas
   button.btn.btn-info.btn-game-options(type='button', data-toggle='modal', data-target='.bs-example-modal-sm')
     i.fa.fa-cog
