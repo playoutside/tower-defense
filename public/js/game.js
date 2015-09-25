@@ -159,7 +159,40 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Player.actionAvailable', function playerActionAvailable(data) {
-    console.log(data);
+    if (data.length === 0) {
+      $('.game-actions').empty();
+      return;
+    }
+
+    $('.game-actions button').attr('data-delete', 'true');
+
+    var button;
+    _.each(data, function(option) {
+      button = $('.game-actions button[data-action="' + option.action + '"][data-lat="' + option.position.lat + '"][data-lon="' + option.position.lon + '"]');
+      if (button.length === 0) {
+        $('<button type="button"/>')
+          .addClass('btn btn-info')
+          .attr('data-action', option.action)
+          .attr('data-lat', option.position.lat)
+          .attr('data-lon', option.position.lon)
+          .append(
+            $('<i>')
+              .addClass('fa fa-cog')
+          )
+          .on('click', function() {
+            that.socket.emit($(this).attr('data-action'), {
+              playerId: user.id,
+              lat: $(this).attr('data-lat'),
+              lon: $(this).attr('data-lon')
+            });
+          })
+          .appendTo('.game-actions');
+      } else {
+        button.attr('data-delete', 'false');
+      }
+    });
+
+    $('.game-actions button[data-delete="true"]').remove();
   });
 
   this.socket.on('Creeps.status', updateCreeps);
