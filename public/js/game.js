@@ -116,6 +116,20 @@ function Game(gameContainer, zoom, lat, lng) {
     });
   };
 
+  window.setInterval(function() {
+      var now = Date.now();
+      that.bullets = _.filter(that.bullets, function(bullet) {
+        if (now - bullet.created < 500) {
+          bullet.remove();
+          return false; // delete bullet from list afterwards
+        }
+
+        return true; // keep bullet in list
+      }, that);
+    },
+    200
+  );
+
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
     console.log('Game.fullStatus', data);
 
@@ -181,13 +195,13 @@ function Game(gameContainer, zoom, lat, lng) {
       button = $('.game-actions button[data-action="' + option.action + '"][data-lat="' + option.position.lat + '"][data-lon="' + option.position.lon + '"]');
       if (button.length === 0) {
         $('<button type="button"/>')
-          .addClass('btn btn-info')
+          .addClass('btn btn-' + (option.action == 'Towers.build' ? 'warning' : 'danger'))
           .attr('data-action', option.action)
           .attr('data-lat', option.position.lat)
           .attr('data-lon', option.position.lon)
           .append(
           $('<i>')
-            .addClass('fa fa-cog')
+            .addClass('fa fa-' + (option.action == 'Towers.build' ? 'gavel' : 'level-up'))
         )
           .on('click', function () {
             that.socket.emit($(this).attr('data-action'), {
@@ -213,7 +227,7 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Tower.fire', function onTowerFire(data) {
-    console.log('Tower.fire', data);
+    that.fire(data.turret.lat, data.turret.lon, data.creep.lat, data.creep.lon);
   });
 
   this.socket.on('Creeps.status', updateCreeps);
@@ -285,6 +299,7 @@ Game.prototype.showCircles = function (show) {
   });
 };
 
-Game.prototype.fire = function () {
-
+Game.prototype.fire = function (latTower, lngTower, latCreep, lngCreep) {
+  var bullet = new Bullet(this.map, latTower, lngTower, latCreep, lngCreep);
+  this.bullets.push(bullet);
 };
