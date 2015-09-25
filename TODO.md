@@ -16,7 +16,9 @@ Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum ba
 
 ~~Bug: Circle anzeigen, auch wenn Turm da ist (RUBEN)~~
 
-Bug: Bereits vorhandene Spieler mit anzeigen (RUBEN)
+~~Bug: Bereits vorhandene Spieler mit anzeigen (RUBEN)~~
+
+Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)
 
 Feature: Credits verteilen und ausgeben STATUS
 
