@@ -18,7 +18,7 @@ Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum ba
 
 ~~Bug: Bereits vorhandene Spieler mit anzeigen (RUBEN)~~
 
-Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)
+~~Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)~~
 
 Bug: TypeError: Cannot read property 'id' of undefined
 
@@ -30,7 +30,7 @@ Feature: Credits verteilen und ausgeben STATUS
 
 ~~Feature: Schüsse visualisieren (KEVIN)~~
 
-Feature: Lebensbalken für Creeps
+Feature: Lebensbalken für Creeps (RUBEN)
 
 Bonus: Deployment auf externen Server / von Aussen erreichbar machen
 
