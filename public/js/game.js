@@ -129,6 +129,10 @@ function Game(gameContainer, zoom, lat, lng) {
     200
   );
 
+  this.socket.on('Game.over', function onGameOver() {
+
+  });
+
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
     console.log('Game.fullStatus', data);
 
@@ -266,7 +270,7 @@ function Game(gameContainer, zoom, lat, lng) {
   this.socket.on('Tower.status', function updateTower(data) {
     console.log('tower changed', data);
 
-    that.updateTower(data);
+    _.each(data, that.updateTower, that);
   });
 
   this.socket.on('Creeps.status', updateCreeps);
@@ -332,14 +336,14 @@ Game.prototype.addTower = function (id, lat, lng, siteTower) {
 
 Game.prototype.updateTower = function (updatedTurretSite) {
   var actualTower = _.find(this.towers, function (currentTower) {
-    return (currentTower.lat == updatedTurretSite[0].position.lat && currentTower.lng == updatedTurretSite[0].position.lon);
+    return (currentTower.lat == updatedTurretSite.position.lat && currentTower.lng == updatedTurretSite.position.lon);
   });
 
   if (!actualTower) {
     return;
   }
 
-  actualTower.updateStatus(updatedTurretSite[0].tower);
+  actualTower.updateStatus(updatedTurretSite.tower);
 };
 
 Game.prototype.addCreep = function (id, lat, lng, hp) {

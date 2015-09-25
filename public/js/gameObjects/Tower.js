@@ -6,9 +6,17 @@ function Tower(map, id, lat, lng) {
   this.id = id;
   this.lat = lat;
   this.lng = lng;
-  this.tower = null;
-  this.marker = new google.maps.Marker({
+  this.tower = {
+    level: 0,
+    id: null
+  };
+  this.marker = new MarkerWithLabel({
+    draggable: false,
     map: map,
+    labelContent: '---',
+    labelAnchor: new google.maps.Point(20, 40),
+    labelClass: "labels", // the CSS class for the label
+    labelStyle: {opacity: 0.75},
     icon: {
       url: '/img/tower-empty.png',
       size: new google.maps.Size(128, 128),
@@ -39,24 +47,13 @@ Tower.prototype.isEmpty = function() {
   return this.tower === null;
 };
 
-Tower.prototype.build = function() {
-  var position = this.marker.getPosition();
-  var map = this.marker.getMap();
-  this.marker.setMap(null);
-  this.marker = new google.maps.Marker({
-    map: map,
-    icon: {
-      url: '/img/tower.png',
-      size: new google.maps.Size(128, 128),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(24, 24),
-      scaledSize: new google.maps.Size(48, 48)
-    }
-  });
-  this.marker.setPosition(position);
-  this.addListener(this);
-
-  this.tower = {};
+Tower.prototype.build = function(siteTower) {
+  this.tower = {
+    id: siteTower.id,
+    level: siteTower.level
+  };
+  this.marker.labelContent = 'L' + this.tower.level;
+  this.marker.getIcon().url = '/img/tower.png';
 };
 
 Tower.prototype.addListener = function(that) {
@@ -95,26 +92,15 @@ Tower.prototype.updateStatus = function (towerDataSource) {
   this.tower = {
     id: towerDataSource.id,
     level: towerDataSource.level
-  }
+  };
 
-  var position = this.marker.getPosition();
-  var map = this.marker.getMap();
-  this.marker.setMap(null);
+  console.log(towerDataSource, this.tower);
+  //var position = this.marker.getPosition();
+  //var map = this.marker.getMap();
+  //this.marker.setMap(null);
 
-  this.marker = new MarkerWithLabel({
-    position: position,
-    draggable: false,
-    map: map,
-    labelContent: 'L' + this.tower.level,
-    labelAnchor: new google.maps.Point(20, 40),
-    labelClass: "labels", // the CSS class for the label
-    labelStyle: {opacity: 0.75},
-    icon: {
-      url: '/img/tower.png',
-      size: new google.maps.Size(128, 128),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(24, 24),
-      scaledSize: new google.maps.Size(48, 48)
-    }
-  });
+  this.marker.labelContent = 'L' + this.tower.level;
+  this.marker.getIcon().url = (this.tower.level > 0 ? '/img/tower.png' : '/img/tower-empty.png')
+  // dirty hack to refresh the marker label - DON'T YOU DARE TO REMOVE THIS LINE
+  this.marker.setMap(this.marker.getMap());
 };
