@@ -1,7 +1,8 @@
 'use strict';
 
-function Bullet(map, latTower, lngTower, latCreep, lngCreep) {
+function Bullet(map, id, latTower, lngTower, latCreep, lngCreep) {
   this.created = Date.now();
+  this.id = id;
 
   this.shape = new google.maps.Polyline({
     path: [

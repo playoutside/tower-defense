@@ -6,7 +6,8 @@ function Game(gameContainer, zoom, lat, lng) {
   this.players = {};
   this.towers = {};
   this.creeps = {};
-  this.bullets = [];
+  this.bullets = {};
+  this.bulletCounter = 0;
   this.currentPlayer = null;
   this.socket = io();
   this.path = null;
@@ -109,22 +110,20 @@ function Game(gameContainer, zoom, lat, lng) {
   var updateCreeps = function updateCreeps(creeps) {
     _.each(creeps, function (creep) {
       if (_.has(that.creeps, creep.id)) {
-        that.creeps[creep.id].move(creep.pos.lat, creep.pos.lon);
+        that.creeps[creep.id].move(creep.pos.lat, creep.pos.lon, creep.hitPoints);
       } else {
-        that.addCreep(creep.id, creep.pos.lat, creep.pos.lon);
+        that.addCreep(creep.id, creep.pos.lat, creep.pos.lon, creep.hitPoints);
       }
     });
   };
 
   window.setInterval(function() {
       var now = Date.now();
-      that.bullets = _.filter(that.bullets, function(bullet) {
+      _.each(that.bullets, function(bullet) {
         if (now - bullet.created < 500) {
           bullet.remove();
-          return false; // delete bullet from list afterwards
+          delete(that.bullets[bullet.id]);
         }
-
-        return true; // keep bullet in list
       }, that);
     },
     200
@@ -141,7 +140,22 @@ function Game(gameContainer, zoom, lat, lng) {
       bounds.extend(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
     });
 
-    var path = new google.maps.Polyline({
+/*    // clean up creeps
+    _.each(that.creeps, function (creep) {
+      creep.remove();
+    });
+
+    // cleanup players
+    _.each(that.players, function (player) {
+      player.remove();
+    });
+
+    // cleanup towers
+    _.each(that.towers, function (tower) {
+      tower.remove();
+    });*/
+
+    var path = that.path || new google.maps.Polyline({
       path: pathCoordinates,
       geodesic: true,
       strokeColor: '#6fcdde',
@@ -306,8 +320,8 @@ Game.prototype.updateTower = function (updatedTurretSite) {
   actualTower.updateStatus(updatedTurretSite[0].tower);
 };
 
-Game.prototype.addCreep = function (id, lat, lng) {
-  var creep = new Creep(this.map, id, lat, lng);
+Game.prototype.addCreep = function (id, lat, lng, hp) {
+  var creep = new Creep(this.map, id, lat, lng, hp);
   this.creeps[id] = creep;
   return creep;
 };
@@ -324,6 +338,7 @@ Game.prototype.showCircles = function (show) {
 };
 
 Game.prototype.fire = function (latTower, lngTower, latCreep, lngCreep) {
-  var bullet = new Bullet(this.map, latTower, lngTower, latCreep, lngCreep);
-  this.bullets.push(bullet);
+  var id = 'bullet-' + (++this.bulletCounter);
+  var bullet = new Bullet(this.map, id, latTower, lngTower, latCreep, lngCreep);
+  this.bullets[id] = bullet;
 };
