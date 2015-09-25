@@ -201,7 +201,7 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Players.health', function playerHealth(health) {
-    new PNotify({text: 'Creep could hit and took a life.'});
+    //new PNotify({text: 'Creep could hit and took a life.'});
     $('.hud .lives').html('Lives: ' + health);
   });
 
@@ -270,7 +270,7 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Creeps.newWave', function (data) {
-    new PNotify({text: 'Wave ' + data.wave + ' started.'});
+    //new PNotify({text: 'Wave ' + data.wave + ' started.'});
     $('.hud .wave').html('Wave: ' + data.wave);
   });
 
