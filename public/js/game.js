@@ -6,6 +6,7 @@ function Game(gameContainer, zoom, lat, lng) {
   this.players = {};
   this.towers = {};
   this.creeps = {};
+  this.bullets = [];
   this.currentPlayer = null;
   this.socket = io();
   this.path = null;
@@ -99,14 +100,14 @@ function Game(gameContainer, zoom, lat, lng) {
   };
   this.map = new google.maps.Map(gameContainer, mapOptions);
 
-  this.socket.on('connect', function onConnect () {
+  this.socket.on('connect', function onConnect() {
     that.socket.emit('Players.join', {
       playerId: user.id
     });
   });
 
   var updateCreeps = function updateCreeps(creeps) {
-    _.each(creeps, function(creep) {
+    _.each(creeps, function (creep) {
       if (_.has(that.creeps, creep.id)) {
         that.creeps[creep.id].move(creep.pos.lat, creep.pos.lon);
       } else {
@@ -116,12 +117,12 @@ function Game(gameContainer, zoom, lat, lng) {
   };
 
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
-    console.log(data);
+    console.log('Game.fullStatus', data);
 
     var pathCoordinates = [];
     var bounds = new google.maps.LatLngBounds();
 
-    _.each(data.level.path, function(pathCoordinatesPair, index) {
+    _.each(data.level.path, function (pathCoordinatesPair, index) {
       pathCoordinates.push(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
       bounds.extend(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
     });
@@ -139,7 +140,7 @@ function Game(gameContainer, zoom, lat, lng) {
     that.map.fitBounds(bounds);
     that.map.panToBounds(bounds);
 
-    _.each(data.level.turretSites, function(turretSite, index) {
+    _.each(data.level.turretSites, function (turretSite, index) {
       that.addTower(index, turretSite.position.lat, turretSite.position.lon);
     });
   });
@@ -167,7 +168,7 @@ function Game(gameContainer, zoom, lat, lng) {
     $('.game-actions button').attr('data-delete', 'true');
 
     var button;
-    _.each(data, function(option) {
+    _.each(data, function (option) {
       button = $('.game-actions button[data-action="' + option.action + '"][data-lat="' + option.position.lat + '"][data-lon="' + option.position.lon + '"]');
       if (button.length === 0) {
         $('<button type="button"/>')
@@ -176,10 +177,10 @@ function Game(gameContainer, zoom, lat, lng) {
           .attr('data-lat', option.position.lat)
           .attr('data-lon', option.position.lon)
           .append(
-            $('<i>')
-              .addClass('fa fa-cog')
-          )
-          .on('click', function() {
+          $('<i>')
+            .addClass('fa fa-cog')
+        )
+          .on('click', function () {
             that.socket.emit($(this).attr('data-action'), {
               playerId: user.id,
               lat: $(this).attr('data-lat'),
@@ -196,10 +197,14 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Tower.build', function onTowerBuild(data) {
-    var tower = _.find(that.towers, function(tower){
+    var tower = _.find(that.towers, function (tower) {
       return tower.lat == data.lat && tower.lng == data.lon;
     });
     tower.build();
+  });
+
+  this.socket.on('Tower.fire', function onTowerFire(data) {
+    console.log('Tower.fire', data);
   });
 
   this.socket.on('Creeps.status', updateCreeps);
@@ -269,4 +274,8 @@ Game.prototype.showCircles = function (show) {
   _.each(this.towers, function (tower) {
     tower.showCircle(show);
   });
+};
+
+Game.prototype.fire = function () {
+
 };
