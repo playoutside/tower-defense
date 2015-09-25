@@ -195,6 +195,13 @@ function Game(gameContainer, zoom, lat, lng) {
     $('.game-actions button[data-delete="true"]').remove();
   });
 
+  this.socket.on('Tower.build', function onTowerBuild(data) {
+    var tower = _.find(that.towers, function(tower){
+      return tower.lat == data.lat && tower.lng == data.lon;
+    });
+    tower.build();
+  });
+
   this.socket.on('Creeps.status', updateCreeps);
 
   this.socket.on('Creeps.remove', function (creeps) {
