@@ -24,7 +24,7 @@ Feature: Credits verteilen und ausgeben STATUS (KEVIN)
 
 ~~Feature: Schüsse visualisieren (KEVIN)~~
 
-Feature: Lebensbalken für Creeps (RUBEN)
+~~Feature: Lebensbalken für Creeps (RUBEN)~~
 
 Bug: TypeError: Cannot read property 'id' of undefined
 
