@@ -141,7 +141,22 @@ function Game(gameContainer, zoom, lat, lng) {
       bounds.extend(new google.maps.LatLng(pathCoordinatesPair.lat, pathCoordinatesPair.lon));
     });
 
-    var path = new google.maps.Polyline({
+/*    // clean up creeps
+    _.each(that.creeps, function (creep) {
+      creep.remove();
+    });
+
+    // cleanup players
+    _.each(that.players, function (player) {
+      player.remove();
+    });
+
+    // cleanup towers
+    _.each(that.towers, function (tower) {
+      tower.remove();
+    });*/
+
+    var path = that.path || new google.maps.Polyline({
       path: pathCoordinates,
       geodesic: true,
       strokeColor: '#6fcdde',

@@ -85,3 +85,10 @@ Tower.prototype.showCircle = function (flag) {
 Tower.prototype.isCircleShown = function () {
   return this.circle.getMap() !== null;
 };
+
+Tower.prototype.remove = function() {
+  this.marker.setMap(null);
+  this.marker = null;
+  this.circle.setMap(null);
+  this.circle = null;
+};
