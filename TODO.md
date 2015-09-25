@@ -20,6 +20,12 @@ Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum ba
 
 Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)
 
+Bug: TypeError: Cannot read property 'id' of undefined
+
+		lib\gameObjects\Creeps.js:123
+			removeMsg.push({id: activeCreeps[item].id});
+
+
 Feature: Credits verteilen und ausgeben STATUS
 
 Feature: Schüsse visualisieren (KEVIN)
