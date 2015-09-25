@@ -2,7 +2,7 @@
 bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 
 
-~~Neues Level~~ (RUBEN)
+~~Neues Level (RUBEN)~~
 
 ~~Türme bauen können (KEVIN) +Interaktion~~
 
@@ -10,13 +10,13 @@ bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 
 ~~Türme feuern (MICHA)~~
 
-~~Creeps Schaden erleiden lassen (creep disposal)~~ (RUBEN)
+~~Creeps Schaden erleiden lassen (creep disposal) (RUBEN)~~
 
 Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum bauen
 
-Bug: Circle anzeigen, auch wenn Turm da ist (RUBEN)
+~~Bug: Circle anzeigen, auch wenn Turm da ist (RUBEN)~~
 
-Bug: Bereits vorhandene Spieler mit anzeigen
+Bug: Bereits vorhandene Spieler mit anzeigen (RUBEN)
 
 Feature: Credits verteilen und ausgeben STATUS
 
