@@ -142,6 +142,15 @@ function Game(gameContainer, zoom, lat, lng) {
     _.each(data.level.turretSites, function(turretSite, index) {
       that.addTower(index, turretSite.position.lat, turretSite.position.lon);
     });
+
+    _.each(data.Players, function(data) {
+      if (data.playerId != user.id) {
+        that.addPlayer(data.playerId, data.name, data.image);
+        if (data.pos.lat) {
+          that.players[data.playerId].move(data.pos.lat, data.pos.lon);
+        }
+      }
+    });
   });
 
   this.socket.on('Players.pos', function playerChangedPosition(data) {
