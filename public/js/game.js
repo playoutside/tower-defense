@@ -205,8 +205,8 @@ function Game(gameContainer, zoom, lat, lng) {
     $('.hud .lives').html('Lives: ' + health);
   });
 
-  this.socket.on('Players.credits', function playerHealth(credits) {
-    $('.hud .lives').html('Credits: ' + credits);
+  this.socket.on('Players.credits', function playerCredits(credits) {
+    $('.hud .credits').html('Credits: ' + credits);
   });
 
   this.socket.on('Player.actionAvailable', function playerActionAvailable(data) {
