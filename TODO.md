@@ -12,7 +12,7 @@ bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 
 ~~Creeps Schaden erleiden lassen (creep disposal) (RUBEN)~~
 
-Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum bauen
+~~Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum bauen (MICHAEL)~~
 
 ~~Bug: Circle anzeigen, auch wenn Turm da ist (RUBEN)~~
 
@@ -20,20 +20,19 @@ Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum ba
 
 ~~Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)~~
 
+Feature: Credits verteilen und ausgeben STATUS (KEVIN)
+
+~~Feature: Schüsse visualisieren (KEVIN)~~
+
+Feature: Lebensbalken für Creeps (RUBEN)
+
 Bug: TypeError: Cannot read property 'id' of undefined
 
 		lib\gameObjects\Creeps.js:123
 			removeMsg.push({id: activeCreeps[item].id});
 
 
-Feature: Credits verteilen und ausgeben STATUS
-
-~~Feature: Schüsse visualisieren (KEVIN)~~
-
-Feature: Lebensbalken für Creeps (RUBEN)
-
 Bonus: Deployment auf externen Server / von Aussen erreichbar machen
-
 
 ---
 
