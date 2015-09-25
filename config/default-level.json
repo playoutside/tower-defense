@@ -12,7 +12,7 @@
       "max":8
     }
   },
-  "tower":{"damage":20,"damageIncrement":4,"cost":10,"costIncrement":4,"range":50},
+  "tower":{"damage":20,"damageIncrement":4,"cost":10,"costIncrement":4,"range":50,"cooldown":1000},
   "mapCenter":{"lat":"50.409696","lon":"9.623659"},
   "zoom":{"min":1,"max":16,"initial":5},
   "path":[
@@ -55,7 +55,7 @@
       "max":8
     }
   },
-  "tower":{"damage":20,"increment":4,"range":50},
+  "tower":{"damage":20,"damageIncrement":4,"cost":10,"costIncrement":4,"range":50,"cooldown":1000},
   "mapCenter":{"lat":"52.52013","lon":"13.41966"},
   "zoom":{"min":1,"max":16,"initial":5},
   "path":[

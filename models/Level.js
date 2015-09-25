@@ -57,7 +57,10 @@ var levelSchema = new mongoose.Schema({
      */
     tower:{
         damage:{type:Number},
-        increment:{type:Number},
+        damageIncrement:{type:Number},
+        cost:{type:Number},
+        costIncrement:{type:Number},
+        cooldown:{type:Number},
         range:{type:Number}
     },
 
