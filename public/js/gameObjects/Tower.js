@@ -19,9 +19,7 @@ function Tower(map, id, lat, lng) {
   });
   this.marker.setPosition(new google.maps.LatLng(lat, lng));
 
-  google.maps.event.addListener(this.marker, 'click', function() {
-    that.showCircle(!that.isCircleShown());
-  });
+  this.addListener(this);
 
   this.circle = new google.maps.Circle({
     map: map,
@@ -56,16 +54,22 @@ Tower.prototype.build = function() {
     }
   });
   this.marker.setPosition(position);
-
+  this.addListener(this);
 
   this.tower = {
     level: 1
   };
 };
 
+Tower.prototype.addListener = function(that) {
+  google.maps.event.addListener(this.marker, 'click', function() {
+    that.showCircle(!that.isCircleShown());
+  });
+};
+
 Tower.prototype.upgrade = function() {
   if (!this.isEmpty()) {
-    this.tower.level++
+    this.tower.level++;
   }
   // TODO: update indicator?
 };
