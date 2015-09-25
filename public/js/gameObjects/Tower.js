@@ -4,6 +4,8 @@ function Tower(map, id, lat, lng) {
   var that = this;
 
   this.id = id;
+  this.lat = lat;
+  this.lng = lng;
   this.tower = null;
   this.marker = new google.maps.Marker({
     map: map,
@@ -41,6 +43,7 @@ Tower.prototype.isEmpty = function() {
 
 Tower.prototype.build = function() {
   var position = this.marker.getPosition();
+  var map = this.marker.getMap();
   this.marker.setMap(null);
   this.marker = new google.maps.Marker({
     map: map,
