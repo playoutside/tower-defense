@@ -232,6 +232,12 @@ function Game(gameContainer, zoom, lat, lng) {
     that.fire(data.turret.lat, data.turret.lon, data.creep.lat, data.creep.lon);
   });
 
+  this.socket.on('Tower.status', function updateTower(data) {
+    console.log('tower changed', data);
+
+    that.updateTower(data);
+  });
+
   this.socket.on('Creeps.status', updateCreeps);
 
   this.socket.on('Creeps.remove', function (creeps) {
@@ -280,11 +286,28 @@ Game.prototype.removePlayer = function (id) {
 
 Game.prototype.addTower = function (id, lat, lng, siteTower) {
   var tower = new Tower(this.map, id, lat, lng);
+
   if (siteTower) {
-    tower.build();
+    tower.build(siteTower);
   }
   this.towers[id] = tower;
   return tower;
+};
+
+Game.prototype.updateTower = function (updatedTurretSite) {
+  var actualTower = _.find(this.towers, function (currentTower) {
+    return (currentTower.lat == updatedTurretSite[0].position.lat && currentTower.lng == updatedTurretSite[0].position.lon);
+  });
+
+  if (!actualTower) {
+    return;
+  }
+
+  actualTower.updateStatus(updatedTurretSite[0].tower);
+
+  //actualTower.tower.level = updatedTurretSite[0].tower.level;
+  //actualTower.tower.id = updatedTurretSite[0].tower.id;
+  console.log('found actual tower: ', actualTower);
 };
 
 Game.prototype.addCreep = function (id, lat, lng) {

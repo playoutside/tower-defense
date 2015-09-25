@@ -17,6 +17,7 @@
 //= require lib/bootstrap.min
 //= require lib/underscore.min
 //= require lib/pnotify.custom.min
+//= require lib/markerwithlabel
 //= require_tree gameObjects
 //= require game
 //= require main

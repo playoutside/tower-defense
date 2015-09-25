@@ -56,9 +56,7 @@ Tower.prototype.build = function() {
   this.marker.setPosition(position);
   this.addListener(this);
 
-  this.tower = {
-    level: 1
-  };
+  this.tower = {};
 };
 
 Tower.prototype.addListener = function(that) {
@@ -84,4 +82,32 @@ Tower.prototype.showCircle = function (flag) {
 
 Tower.prototype.isCircleShown = function () {
   return this.circle.getMap() !== null;
+};
+
+Tower.prototype.updateStatus = function (towerDataSource) {
+  this.tower = {
+    id: towerDataSource.id,
+    level: towerDataSource.level
+  }
+
+  var position = this.marker.getPosition();
+  var map = this.marker.getMap();
+  this.marker.setMap(null);
+
+  this.marker = new MarkerWithLabel({
+    position: position,
+    draggable: false,
+    map: map,
+    labelContent: 'L' + this.tower.level,
+    labelAnchor: new google.maps.Point(20, 40),
+    labelClass: "labels", // the CSS class for the label
+    labelStyle: {opacity: 0.75},
+    icon: {
+      url: '/img/tower.png',
+      size: new google.maps.Size(128, 128),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(24, 24),
+      scaledSize: new google.maps.Size(48, 48)
+    }
+  });
 };
