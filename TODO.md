@@ -20,7 +20,7 @@ Bug: Bereits vorhandene Spieler mit anzeigen
 
 Feature: Credits verteilen und ausgeben STATUS
 
-Feature: Schüsse visualisieren
+Feature: Schüsse visualisieren (KEVIN)
 
 Feature: Lebensbalken für Creeps
 
