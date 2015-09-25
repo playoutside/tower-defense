@@ -16,7 +16,9 @@ Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum ba
 
 ~~Bug: Circle anzeigen, auch wenn Turm da ist (RUBEN)~~
 
-Bug: Bereits vorhandene Spieler mit anzeigen (RUBEN)
+~~Bug: Bereits vorhandene Spieler mit anzeigen (RUBEN)~~
+
+Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)
 
 Bug: TypeError: Cannot read property 'id' of undefined
 
@@ -26,7 +28,7 @@ Bug: TypeError: Cannot read property 'id' of undefined
 
 Feature: Credits verteilen und ausgeben STATUS
 
-Feature: Schüsse visualisieren (KEVIN)
+~~Feature: Schüsse visualisieren (KEVIN)~~
 
 Feature: Lebensbalken für Creeps
 
