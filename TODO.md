@@ -20,11 +20,17 @@ bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 
 ~~Bug: Bereits platzierte Türme anzeigen wenn der Spieler sich später einloggt (RUBEN)~~
 
-Feature: Credits verteilen und ausgeben STATUS (KEVIN)
+~~Feature: Credits verteilen und ausgeben STATUS (KEVIN)~~
+
+Feature: bauen kostet Credits (MICHAEL)
 
 ~~Feature: Schüsse visualisieren (KEVIN)~~
 
 ~~Feature: Lebensbalken für Creeps (RUBEN)~~
+
+Bug: Bauoptionen werden erst nach einem Bau erst wieder aktualisiert, wenn man sich bewegt hat (RUBEN)
+
+Bug: Level Marker für Türme nur auf dem ersten Turm (KEVIN)
 
 Bug: TypeError: Cannot read property 'id' of undefined
 
