@@ -109,9 +109,9 @@ function Game(gameContainer, zoom, lat, lng) {
   var updateCreeps = function updateCreeps(creeps) {
     _.each(creeps, function (creep) {
       if (_.has(that.creeps, creep.id)) {
-        that.creeps[creep.id].move(creep.pos.lat, creep.pos.lon);
+        that.creeps[creep.id].move(creep.pos.lat, creep.pos.lon, creep.hitPoints);
       } else {
-        that.addCreep(creep.id, creep.pos.lat, creep.pos.lon);
+        that.addCreep(creep.id, creep.pos.lat, creep.pos.lon, creep.hitPoints);
       }
     });
   };
@@ -287,8 +287,8 @@ Game.prototype.addTower = function (id, lat, lng, siteTower) {
   return tower;
 };
 
-Game.prototype.addCreep = function (id, lat, lng) {
-  var creep = new Creep(this.map, id, lat, lng);
+Game.prototype.addCreep = function (id, lat, lng, hp) {
+  var creep = new Creep(this.map, id, lat, lng, hp);
   this.creeps[id] = creep;
   return creep;
 };
