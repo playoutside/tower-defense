@@ -48,10 +48,13 @@ Tower.prototype.isEmpty = function() {
 };
 
 Tower.prototype.build = function(siteTower) {
-  this.tower = {
-    id: siteTower.id,
-    level: siteTower.level
-  };
+  if (siteTower) {
+    this.tower = {
+      id: siteTower.id,
+      level: siteTower.level
+    };
+  }
+
   this.marker.labelContent = 'L' + this.tower.level;
   this.marker.getIcon().url = '/img/tower.png';
 };

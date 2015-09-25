@@ -268,8 +268,6 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Tower.status', function updateTower(data) {
-    console.log('tower changed', data);
-
     _.each(data, that.updateTower, that);
   });
 
