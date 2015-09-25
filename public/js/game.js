@@ -155,7 +155,7 @@ function Game(gameContainer, zoom, lat, lng) {
     that.map.panToBounds(bounds);
 
     _.each(data.level.turretSites, function (turretSite, index) {
-      that.addTower(index, turretSite.position.lat, turretSite.position.lon);
+      that.addTower(index, turretSite.position.lat, turretSite.position.lon, turretSite.tower);
     });
 
     _.each(data.Players, function(data) {
@@ -278,8 +278,11 @@ Game.prototype.removePlayer = function (id) {
   delete(this.players[id]);
 };
 
-Game.prototype.addTower = function (id, lat, lng) {
+Game.prototype.addTower = function (id, lat, lng, siteTower) {
   var tower = new Tower(this.map, id, lat, lng);
+  if (siteTower) {
+    tower.build();
+  }
   this.towers[id] = tower;
   return tower;
 };
