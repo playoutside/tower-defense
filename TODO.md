@@ -28,7 +28,7 @@ Bug: TypeError: Cannot read property 'id' of undefined
 
 Feature: Credits verteilen und ausgeben STATUS
 
-Feature: Schüsse visualisieren (KEVIN)
+~~Feature: Schüsse visualisieren (KEVIN)~~
 
 Feature: Lebensbalken für Creeps
 
