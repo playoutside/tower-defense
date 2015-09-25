@@ -12,16 +12,19 @@ bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 
 ~~Creeps Schaden erleiden lassen (creep disposal)~~ (RUBEN)
 
-Türme upgraden (RUBEN) - UI sollte dazu schon stehen - im Grunde analog zum bauen
+Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum bauen
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+Bug: Circle anzeigen, auch wenn Turm da ist
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+Bug: Bereits vorhandene Spieler mit anzeigen                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
-Credits verteilen und ausgeben (KEVIN) STATUS
+Feature: Credits verteilen und ausgeben STATUS
 
-UI?
-	Status (HP/Credits)
-	Interaktion
+Feature: Schüsse visualisieren
 
+Feature: Lebensbalken für Creeps
 
-Deployment auf externen Server / von Aussen erreichbar machen
+Bonus: Deployment auf externen Server / von Aussen erreichbar machen
 
 
 ---
