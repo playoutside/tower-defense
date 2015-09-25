@@ -209,6 +209,10 @@ function Game(gameContainer, zoom, lat, lng) {
     $('.hud .credits').html('Credits: ' + credits);
   });
 
+  this.socket.on('Players.message', function playerMessage (message) {
+    new PNotify({text: message});
+  });
+
   this.socket.on('Player.actionAvailable', function playerActionAvailable(data) {
     if (data.length === 0) {
       $('.game-actions').empty();
