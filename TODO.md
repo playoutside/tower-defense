@@ -13,10 +13,10 @@ bis 3, ab 10 bis 13, 14 bis 19, Feierabend
 ~~Creeps Schaden erleiden lassen (creep disposal)~~ (RUBEN)
 
 Feature: Türme upgraden - UI sollte dazu schon stehen - im Grunde analog zum bauen
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-Bug: Circle anzeigen, auch wenn Turm da ist
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-Bug: Bereits vorhandene Spieler mit anzeigen                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+Bug: Circle anzeigen, auch wenn Turm da ist (RUBEN)
+
+Bug: Bereits vorhandene Spieler mit anzeigen
 
 Feature: Credits verteilen und ausgeben STATUS
 
