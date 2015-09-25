@@ -199,6 +199,7 @@ function Game(gameContainer, zoom, lat, lng) {
           .attr('data-action', option.action)
           .attr('data-lat', option.position.lat)
           .attr('data-lon', option.position.lon)
+          .attr('data-tower-id', option.towerId)
           .append(
           $('<i>')
             .addClass('fa fa-' + (option.action == 'Towers.build' ? 'gavel' : 'level-up'))
@@ -207,7 +208,8 @@ function Game(gameContainer, zoom, lat, lng) {
             that.socket.emit($(this).attr('data-action'), {
               playerId: user.id,
               lat: $(this).attr('data-lat'),
-              lon: $(this).attr('data-lon')
+              lon: $(this).attr('data-lon'),
+              towerId: $(this).attr('data-tower-id')
             });
           })
           .appendTo('.game-actions');
