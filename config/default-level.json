@@ -1,5 +1,47 @@
 [{
   "name":"Hackathon Infestation",
+  "version":"1.2",
+  "maxPlayer": 30,
+  "city":"Mittelkalbach",
+  "wave":{"duration":10,"delay":10,"creepCount":5},
+  "creep":{
+    "hitPoints":100,
+    "increment":5,
+    "speed":{
+      "min":3,
+      "max":8
+    }
+  },
+  "tower":{"damage":30,"damageIncrement":4,"cost":10,"costIncrement":4,"range":50,"cooldown":2000,"cooldownDecrement":100},
+  "mapCenter":{"lat":"50.409696","lon":"9.623659"},
+  "zoom":{"min":1,"max":16,"initial":5},
+  "path":[
+    {"lat":"50.409687","lon":"9.623674"},
+    {"lat":"50.409870","lon":"9.622719"},
+    {"lat":"50.409753","lon":"9.622235"},
+    {"lat":"50.409265","lon":"9.622603"},
+    {"lat":"50.409346","lon":"9.622890"},
+    {"lat":"50.409531","lon":"9.622757"}
+  ],
+  "turretSites":[
+    {"position":{"lat":"50.409564","lon":"9.623439"},"size":1},
+    {"position":{"lat":"50.409933","lon":"9.623136"},"size":1},
+    {"position":{"lat":"50.409687","lon":"9.622519"},"size":1},
+    {"position":{"lat":"50.409601","lon":"9.622159"},"size":1},
+    {"position":{"lat":"50.409362","lon":"9.622701"},"size":1},
+    {"position":{"lat":"50.409196","lon":"9.622808"},"size":1}
+
+
+  ],
+  "items":{
+    "spawnPoints":[{"position":{"lat":"50.409687","lon":"9.623674"}}],
+    "available":[
+      {"name":"Coins","value":100,"mode":"pickup","respawn":60},
+      {"name":"Box of Coins","value":1000,"mode":"carry-back","respawn":300}
+    ]
+  }
+},{
+  "name":"Hackathon Infestation",
   "version":"1.0",
   "maxPlayer": 30,
   "city":"Mittelkalbach",
