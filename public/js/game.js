@@ -205,6 +205,10 @@ function Game(gameContainer, zoom, lat, lng) {
     $('.hud .lives').html('Lives: ' + health);
   });
 
+  this.socket.on('Players.credits', function playerHealth(credits) {
+    $('.hud .lives').html('Credits: ' + credits);
+  });
+
   this.socket.on('Player.actionAvailable', function playerActionAvailable(data) {
     if (data.length === 0) {
       $('.game-actions').empty();
