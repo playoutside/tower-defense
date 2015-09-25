@@ -129,8 +129,8 @@ function Game(gameContainer, zoom, lat, lng) {
     200
   );
 
-  this.socket.on('Game.over', function onGameOver() {
-
+  this.socket.on('Game.over', function onGameOver(level) {
+    $('<div class="game-over" />').appendTo('.container');
   });
 
   this.socket.on('Game.fullStatus', function onFullStatus(data) {
