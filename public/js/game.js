@@ -6,7 +6,8 @@ function Game(gameContainer, zoom, lat, lng) {
   this.players = {};
   this.towers = {};
   this.creeps = {};
-  this.bullets = [];
+  this.bullets = {};
+  this.bulletCounter = 0;
   this.currentPlayer = null;
   this.socket = io();
   this.path = null;
@@ -118,13 +119,11 @@ function Game(gameContainer, zoom, lat, lng) {
 
   window.setInterval(function() {
       var now = Date.now();
-      that.bullets = _.filter(that.bullets, function(bullet) {
+      _.each(that.bullets, function(bullet) {
         if (now - bullet.created < 500) {
           bullet.remove();
-          return false; // delete bullet from list afterwards
+          delete(that.bullets[bullet.id]);
         }
-
-        return true; // keep bullet in list
       }, that);
     },
     200
@@ -320,6 +319,7 @@ Game.prototype.showCircles = function (show) {
 };
 
 Game.prototype.fire = function (latTower, lngTower, latCreep, lngCreep) {
-  var bullet = new Bullet(this.map, latTower, lngTower, latCreep, lngCreep);
-  this.bullets.push(bullet);
+  var id = 'bullet-' + (++this.bulletCounter);
+  var bullet = new Bullet(this.map, id, latTower, lngTower, latCreep, lngCreep);
+  this.bullets[id] = bullet;
 };
