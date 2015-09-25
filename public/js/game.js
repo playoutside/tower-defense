@@ -304,10 +304,6 @@ Game.prototype.updateTower = function (updatedTurretSite) {
   }
 
   actualTower.updateStatus(updatedTurretSite[0].tower);
-
-  //actualTower.tower.level = updatedTurretSite[0].tower.level;
-  //actualTower.tower.id = updatedTurretSite[0].tower.id;
-  console.log('found actual tower: ', actualTower);
 };
 
 Game.prototype.addCreep = function (id, lat, lng) {
