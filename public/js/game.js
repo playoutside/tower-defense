@@ -270,7 +270,8 @@ function Game(gameContainer, zoom, lat, lng) {
   });
 
   this.socket.on('Creeps.newWave', function (data) {
-    new PNotify({text: 'Level ' + data.wave + ' started.'});
+    new PNotify({text: 'Wave ' + data.wave + ' started.'});
+    $('.hud .wave').html('Wave: ' + data.wave);
   });
 
   this.watchHandle = navigator.geolocation.watchPosition(
